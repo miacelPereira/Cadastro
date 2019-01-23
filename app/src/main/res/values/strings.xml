@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cadastro</string>
+    <string name="sName">Nome</string>
+    <string name="sEmail">E-mail</string>
+    <string name="sPassword">Senha</string>
+    <string name="sSave">Cadastrar</string>
+    <string name="sWelcome">Cadastro realizado com sucesso</string>
+</resources>
