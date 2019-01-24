@@ -14,9 +14,11 @@ class MainActivity : AppCompatActivity() {
 
 
         btnSave.setOnClickListener {
-            val email = confirmEmail(txtEmail.text.toString());
+            val email = confirmEmail(txtEmail.text.toString())
+            val senha = confirmPassword(txtPass.text.toString())
+            val nome = confirmPassword(txtNome.text.toString())
 
-            if(email){
+            if(email && senha && nome){
                 val intent = Intent (this, Welcome::class.java)
                 startActivity(intent)
             }

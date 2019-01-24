@@ -1,7 +1,7 @@
 package br.senai.jandira.cadastro
 
 fun  confirmName(string:String):Boolean{
-    if(string.length >=3){
+    if(string.length >= 2){
         return true
     }
     return false
@@ -18,15 +18,17 @@ fun confirmPassword(string:String):Boolean{
     if(string.length <= 3){
         return false
     }else{
-        var cont:Int
+        var cont:Int? = null
         for(numero in string){
             if(numero.equals("0") or numero.equals("1") or numero.equals("2") or numero.equals("3") or numero.equals("4") or numero.equals("5") or numero.equals("6") or numero.equals("7") or numero.equals("8") or numero.equals("9") or numero.equals("10")){
-                cont = numero.toInt()
-
+                if((numero.toInt())+1 == cont){
+                    return false
+                }else{
+                    cont = numero.toInt()
+                }
             }
 
         }
-
     }
-
+    return true
 }
