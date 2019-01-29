@@ -14,13 +14,24 @@ class MainActivity : AppCompatActivity() {
 
 
         btnSave.setOnClickListener {
-            val email = confirmEmail(txtEmail.text.toString())
-            val senha = confirmPassword(txtPass.text.toString())
-            val nome = confirmPassword(txtNome.text.toString())
+            val nome = txtNome.text.toString()
+            val email = txtEmail.text.toString()
+            val senha = txtPass.text.toString()
 
-            if(email && senha && nome){
-                val intent = Intent (this, Welcome::class.java)
-                startActivity(intent)
+            if(!minimoCaracter(nome, 3)){
+                txtNome.error = "O nome deve ter no mínimo 3 caracteres "
+            }
+            if(!confirmEmail(email)){
+                txtEmail.error = "O e-mail deve ter @ "
+            }
+            if(!minimoCaracter(senha, 4)){
+                txtPass.error = "A senha deve conter no mínimo 4 caracteres "
+            }
+            if(!textContemNumero(senha)){
+                txtPass.error = "A senha deve conter números"
+            }
+            if(sequenciaNumericaSucesso(senha)){
+                txtPass.error = "A senha não deve conter sequência númerica "
             }
 
         }

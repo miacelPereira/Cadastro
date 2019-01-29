@@ -1,34 +1,9 @@
 package br.senai.jandira.cadastro
 
-fun  confirmName(string:String):Boolean{
-    if(string.length >= 2){
-        return true
-    }
-    return false
-}
+fun  minimoCaracter(string:String, minimo:Int) = string.length >= minimo
 
+fun confirmEmail(string:String) = string.contains("@")
 
-fun confirmEmail(string:String):Boolean{
+fun textContemNumero(texto:String) = texto.filter{it.isDigit()}.length > 0
 
-    return string.contains("@")
-
-}
-
-fun confirmPassword(string:String):Boolean{
-    if(string.length <= 3){
-        return false
-    }else{
-        var cont:Int? = null
-        for(numero in string){
-            if(numero.equals("0") or numero.equals("1") or numero.equals("2") or numero.equals("3") or numero.equals("4") or numero.equals("5") or numero.equals("6") or numero.equals("7") or numero.equals("8") or numero.equals("9") or numero.equals("10")){
-                if((numero.toInt())+1 == cont){
-                    return false
-                }else{
-                    cont = numero.toInt()
-                }
-            }
-
-        }
-    }
-    return true
-}
+fun sequenciaNumericaSucesso(texto:String) = "0123456789".contains(texto)
