@@ -1,4 +1,4 @@
-package br.senai.jandira.cadastro
+package br.senai.jandira.cadastro.ui
 
 fun  minimoCaracter(string:String, minimo:Int) = string.length >= minimo
 

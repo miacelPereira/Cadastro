@@ -1,5 +1,9 @@
 package br.senai.jandira.cadastro
 
+import br.senai.jandira.cadastro.ui.confirmEmail
+import br.senai.jandira.cadastro.ui.minimoCaracter
+import br.senai.jandira.cadastro.ui.sequenciaNumericaSucesso
+import br.senai.jandira.cadastro.ui.textContemNumero
 import org.junit.Assert
 import org.junit.Test
 

@@ -5,4 +5,9 @@
     <string name="sPassword">Senha</string>
     <string name="sSave">Cadastrar</string>
     <string name="sWelcome">Cadastro realizado com sucesso</string>
+    <string name="sMinimoCaracterNome">O nome deve ter no mínimo 3 caracteres</string>
+    <string name="sEmailArroba">O e-mail deve ter @</string>
+    <string name="sSenhaComQuatroCaracter">A senha deve conter no mínimo 4 caracteres</string>
+    <string name="sSenhaComNumeros">A senha deve conter números</string>
+    <string name="sSenhaComSequencia">A senha não deve conter sequência númerica</string>
 </resources>
