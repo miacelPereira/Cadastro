@@ -5,8 +5,10 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.View
 import br.senai.jandira.cadastro.*
+import br.senai.jandira.cadastro.model.Usuario
 import br.senai.jandira.cadastro.viewmodel.CadastroViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         ViewModelProviders.of(this).get(CadastroViewModel::class.java)
     }
 
+    private var errorSnack: Snackbar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,28 +30,44 @@ class MainActivity : AppCompatActivity() {
             val email = txtEmail.text.toString()
             val senha = txtPass.text.toString()
 
-            if(!minimoCaracter(nome, 3)){
-                txtNome.error = R.string.sMinimoCaracterNome.toString()
+            if(validarFormulario(nome, email, senha)){
+                viewModel.cadastrarUsuario(getUsuario())
             }
-            if(!confirmEmail(email)){
-                txtEmail.error = R.string.sEmailArroba.toString()
-            }
-            if(!minimoCaracter(senha, 4)){
-                txtPass.error = R.string.sSenhaComQuatroCaracter.toString()
-            }
-            if(!textContemNumero(senha)){
-                txtPass.error = R.string.sSenhaComNumeros.toString()
-            }
-            if(sequenciaNumericaSucesso(senha)){
-                txtPass.error = R.string.sSenhaComSequencia.toString()
-            }
-
-            viewModel.cadastrarUsuario()
         }
 
         viewModel.loading.observe(this, Observer {
             updateLoading(it)
         })
+        viewModel.error.observe(this, Observer {
+            updateError(it)
+        })
+    }
+
+    fun validarFormulario(nome:String, email:String, senha:String) : Boolean{
+
+        var retorno = true
+        if(!minimoCaracter(nome, 3)){
+            txtNome.error = getString(R.string.sMinimoCaracterNome)
+            retorno = false
+        }
+        if(!confirmEmail(email)){
+            txtEmail.error = getString(R.string.sEmailArroba)
+            retorno = false
+        }
+        if(!minimoCaracter(senha, 4)){
+            txtPass.error = getString(R.string.sSenhaComQuatroCaracter)
+            retorno = false
+        }
+        if(!textContemNumero(senha)){
+            txtPass.error = getString(R.string.sSenhaComNumeros)
+            retorno = false
+        }
+        if(sequenciaNumericaSucesso(senha)){
+            txtPass.error = getString(R.string.sSenhaComSequencia)
+            retorno = false
+        }
+
+        return retorno
     }
 
     fun updateLoading(loading:Boolean?){
@@ -62,5 +82,32 @@ class MainActivity : AppCompatActivity() {
                     progressBar.visibility = View.GONE
             }
         }
+    }
+
+    fun updateError(error:Boolean?){
+        error?.let{
+            if(error){
+
+                // Colocando um SnackBAr
+                errorSnack = Snackbar.make(rootView, "Ô Zé ruela, tem net?", Snackbar.LENGTH_INDEFINITE).apply {
+                    setAction("Reconectar", object: View.OnClickListener{
+                        override fun onClick(v: View?) {
+                            viewModel.cadastrarUsuario(getUsuario())
+                        }
+                    })
+                    show()
+                }
+                progressBar.visibility = View.GONE
+                btnSave.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    fun getUsuario() : Usuario{
+        val nome = txtNome.text.toString()
+        val email = txtEmail.text.toString()
+        val senha = txtPass.text.toString()
+
+        return Usuario(nome, email, senha)
     }
 }
