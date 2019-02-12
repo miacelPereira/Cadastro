@@ -2,9 +2,11 @@ package br.senai.jandira.cadastro.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import br.senai.jandira.cadastro.data.repository.UsuarioRepositoryImpl
 import br.senai.jandira.cadastro.data.retrofit.RetrofitFactory
 import br.senai.jandira.cadastro.domain.userCase.CadastrarUsuario
+import br.senai.jandira.cadastro.model.ApiResult
 import br.senai.jandira.cadastro.model.Usuario
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,11 +26,12 @@ class CadastroViewModel : ViewModel() {
 
     val cadastrarUsuario = CadastrarUsuario(repository, callback())
 
-    inner class callback : Callback<String>{
-        override fun onFailure(call: Call<String>?, t: Throwable?) {
+    inner class callback : Callback<ApiResult>{
+        override fun onFailure(call: Call<ApiResult>?, t: Throwable?) {
+            Log.e("Cadastro view model", t?.message)
             error.postValue(true)
         }
-        override fun onResponse(call: Call<String>? , response: Response<String>?) {
+        override fun onResponse(call: Call<ApiResult>? , response: Response<ApiResult>?) {
            cadastroUsuarioSucesso()
         }
 
