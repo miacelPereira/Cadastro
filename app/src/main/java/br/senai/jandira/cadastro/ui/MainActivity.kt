@@ -1,7 +1,6 @@
 package br.senai.jandira.cadastro.ui
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity() {
             if(error){
 
                 // Colocando um SnackBAr
-                errorSnack = Snackbar.make(rootView, "Ô Zé ruela, tem net?", Snackbar.LENGTH_INDEFINITE).apply {
+                errorSnack = Snackbar.make(rootView, "Você está conectado?", Snackbar.LENGTH_INDEFINITE).apply {
                     setAction("Reconectar", object: View.OnClickListener{
                         override fun onClick(v: View?) {
                             viewModel.cadastrarUsuario(getUsuario())

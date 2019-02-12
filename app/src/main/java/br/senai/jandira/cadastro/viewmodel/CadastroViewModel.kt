@@ -2,10 +2,13 @@ package br.senai.jandira.cadastro.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.os.SystemClock
+import br.senai.jandira.cadastro.data.repository.UsuarioRepositoryImpl
+import br.senai.jandira.cadastro.data.retrofit.RetrofitFactory
+import br.senai.jandira.cadastro.domain.userCase.CadastrarUsuario
 import br.senai.jandira.cadastro.model.Usuario
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CadastroViewModel : ViewModel() {
     // ":" na class significa extends
@@ -14,23 +17,29 @@ class CadastroViewModel : ViewModel() {
     val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Boolean>()
 
+    // Criando API e Repository pois o cadastrar usuario depende deles
+    private val apiService = RetrofitFactory().createApiService()
+    private val repository = UsuarioRepositoryImpl(apiService)
 
-    fun cadastrarUsuario(user:Usuario){
+
+    val cadastrarUsuario = CadastrarUsuario(repository, callback())
+
+    inner class callback : Callback<String>{
+        override fun onFailure(call: Call<String>?, t: Throwable?) {
+            error.postValue(true)
+        }
+        override fun onResponse(call: Call<String>? , response: Response<String>?) {
+           cadastroUsuarioSucesso()
+        }
+
+    }
+
+    fun cadastrarUsuario(user: Usuario){
         loading.postValue(true)
         error.postValue(false)
 
         // Efetuar o cadastro
-
-        //doAsync abre uma nova thread para realizar uma outra função
-        doAsync {
-            //Colocando o sistema para dormir
-            SystemClock.sleep(2000)
-            //Voltando para a thread inicial e acessando a função de usuario carregado
-            uiThread {
-                //cadastroUsuarioSucesso()
-                error.postValue(true)
-            }
-        }
+        cadastrarUsuario.execute(user)
 
     }
     fun cadastroUsuarioSucesso(){
