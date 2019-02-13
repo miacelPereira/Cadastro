@@ -18,6 +18,7 @@ class CadastroViewModel : ViewModel() {
     // Criando a variável que vai controlar o cadastro de acordo com o insert no banco
     val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Boolean>()
+    val sucesso = MutableLiveData<ApiResult>()
 
     // Criando API e Repository pois o cadastrar usuario depende deles
     private val apiService = RetrofitFactory().createApiService()
@@ -32,12 +33,13 @@ class CadastroViewModel : ViewModel() {
             error.postValue(true)
         }
         override fun onResponse(call: Call<ApiResult>? , response: Response<ApiResult>?) {
-           cadastroUsuarioSucesso()
+           val retornoApi = response?.body()
+            cadastroUsuarioSucesso(retornoApi)
         }
 
     }
 
-    fun cadastrarUsuario(user: Usuario){
+    fun cadastrarUsuario(user:Usuario){
         loading.postValue(true)
         error.postValue(false)
 
@@ -45,8 +47,13 @@ class CadastroViewModel : ViewModel() {
         cadastrarUsuario.execute(user)
 
     }
-    fun cadastroUsuarioSucesso(){
+
+    fun cadastroUsuarioSucesso(result:ApiResult?){
         loading.postValue(false)
+        result?.let {
+            sucesso.postValue(result)
+
+        }
     }
 
 }

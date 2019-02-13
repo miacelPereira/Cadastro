@@ -10,6 +10,6 @@ import retrofit2.Call
 // Cadastrando de fato o usuario
 class UsuarioRepositoryImpl (val apiService: ApiService): UsuarioRepository {
     override fun insert(usuario: Usuario): Call<ApiResult> {
-        return apiService.cadastrarUsuario(usuario)
+        return apiService.cadastrarUsuario(usuario.nome,usuario.email,usuario.senha) // Passando os valores pois a API em php espera tudo separado
     }
 }

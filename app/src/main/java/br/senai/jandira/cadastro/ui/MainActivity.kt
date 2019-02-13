@@ -7,9 +7,13 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.View
 import br.senai.jandira.cadastro.*
+import br.senai.jandira.cadastro.model.ApiResult
 import br.senai.jandira.cadastro.model.Usuario
 import br.senai.jandira.cadastro.viewmodel.CadastroViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.okButton
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +43,9 @@ class MainActivity : AppCompatActivity() {
         })
         viewModel.error.observe(this, Observer {
             updateError(it)
+        })
+        viewModel.sucesso.observe(this, Observer {
+            updateSucesso(it)
         })
     }
 
@@ -86,7 +93,6 @@ class MainActivity : AppCompatActivity() {
     fun updateError(error:Boolean?){
         error?.let{
             if(error){
-
                 // Colocando um SnackBAr
                 errorSnack = Snackbar.make(rootView, "Você está conectado?", Snackbar.LENGTH_INDEFINITE).apply {
                     setAction("Reconectar", object: View.OnClickListener{
@@ -98,7 +104,24 @@ class MainActivity : AppCompatActivity() {
                 }
                 progressBar.visibility = View.GONE
                 btnSave.visibility = View.VISIBLE
+            }else{
+                errorSnack?.dismiss()
             }
+        }
+    }
+
+    fun updateSucesso(result:ApiResult?){
+        result?.let {
+
+            val titulo = if(it.sucesso) "Sucesso" else "Erro"
+            alert (it.mensagem, titulo){
+                okButton {
+                    if(result.sucesso) {
+                        startActivity<LoginActivity>()
+                        finish()
+                    }
+                }
+            }.show()
         }
     }
 
