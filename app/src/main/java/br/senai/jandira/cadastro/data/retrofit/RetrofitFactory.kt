@@ -11,5 +11,4 @@ class RetrofitFactory {
 
     fun createApiService () = retrofit().create(ApiService::class.java)
 
-
 }

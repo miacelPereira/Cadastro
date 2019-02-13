@@ -3,6 +3,7 @@
     <string name="sName">Nome</string>
     <string name="sEmail">E-mail</string>
     <string name="sPassword">Senha</string>
+    <string name="sLogin">Entrar</string>
     <string name="sSave">Cadastrar</string>
     <string name="sWelcome">Cadastro realizado com sucesso</string>
     <string name="sMinimoCaracterNome">O nome deve ter no mínimo 3 caracteres</string>

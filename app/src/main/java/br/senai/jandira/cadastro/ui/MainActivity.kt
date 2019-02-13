@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        tvLinkLogin.setOnClickListener{
+            startActivity<LoginActivity>()
+        }
 
         btnSave.setOnClickListener {
             val nome = txtNome.text.toString()
@@ -114,12 +117,17 @@ class MainActivity : AppCompatActivity() {
         result?.let {
 
             val titulo = if(it.sucesso) "Sucesso" else "Erro"
+
+            val funcaoSucesso: (Boolean)->Unit = {// essa função vai receber um Boolean e não irá retornar nada
+                if(it) {
+                    startActivity<SucessoCadastroActivity>()
+                    finish()
+                }
+            }
+
             alert (it.mensagem, titulo){
                 okButton {
-                    if(result.sucesso) {
-                        startActivity<LoginActivity>()
-                        finish()
-                    }
+                    funcaoSucesso(result.sucesso)
                 }
             }.show()
         }

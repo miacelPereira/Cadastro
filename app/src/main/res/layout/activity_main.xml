@@ -16,7 +16,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/user_add"
-        android:textSize="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/colorZero"
@@ -64,6 +63,26 @@
         android:textColor="@color/colorBackground"
         android:background="@color/colorButton"
         />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Já é cadastrado?"
+            android:layout_marginRight="8dp"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clique aqui"
+            android:id="@+id/tvLinkLogin"
+            android:textColor="@color/colorLink"
+            android:textSize="18sp"
+            />
+    </LinearLayout>
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

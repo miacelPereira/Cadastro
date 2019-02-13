@@ -7,4 +7,5 @@
     <color name="colorZero">#000000</color>
     <color name="colorButton">#212121</color>
     <color name="colorEdit">#47474739</color>
+    <color name="colorLink">#00296d</color>
 </resources>
