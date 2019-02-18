@@ -51,6 +51,11 @@
         android:textColor="@color/colorBackground"
         android:background="@color/colorButton"
         />
-
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarLogin"
+        android:paddingTop="30dp"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -7,7 +7,7 @@ import br.senai.jandira.cadastro.model.Usuario
 import retrofit2.Call
 
 class LoginRepositoryImpl(val apiService: ApiService): LoginRepository{
-    override fun logar(usuario: Usuario): Call<LoginResult> {
-        return apiService.logarUsuario(usuario.email,usuario.senha)
+    override fun logar(email:String, senha:String): Call<LoginResult> {
+        return apiService.logarUsuario(email, senha)
     }
 }
