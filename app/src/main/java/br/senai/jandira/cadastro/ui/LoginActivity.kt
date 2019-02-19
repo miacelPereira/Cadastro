@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            alert ("teste", titulo){
+            alert ("Seja bem-vindo, "+result.usuario?.nome.toString(), titulo){
                 okButton {
                     funcaoSucesso(result.sucesso)
                 }
